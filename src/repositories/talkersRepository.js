@@ -9,6 +9,13 @@ const findAllTalkers = async () => {
   return talkers;
 };
 
+const findTalkerById = async (idTalker) => {
+  const allTalkers = await findAllTalkers();
+  const talkerFound = allTalkers.find(({ id }) => id === Number(idTalker));
+  return talkerFound;
+};
+
 module.exports = {
   findAllTalkers,
+  findTalkerById,
 };
