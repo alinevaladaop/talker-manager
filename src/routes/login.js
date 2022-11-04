@@ -1,4 +1,5 @@
 const express = require('express');
+const validateLogin = require('../middleware/validateLogin');
 
 const router = express.Router();
 
@@ -12,7 +13,7 @@ function randomToken(length) { // function from stackoverflow
   return result;
 }
 
-router.post('/', async (req, res) => 
+router.post('/', validateLogin, async (req, res) => 
   // const { email, password } = req.body;
      res.status(200).json({
       token: randomToken(16),
