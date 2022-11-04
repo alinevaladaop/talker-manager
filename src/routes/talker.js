@@ -41,4 +41,10 @@ async (req, res) => {
   return res.status(200).json(result);
 });
 
+router.delete('/:id', validateToken, async (req, res) => {
+  const idParam = req.params.id;
+  await talkersRepository.deletePerson(idParam);
+  return res.status(204).end();
+});
+
 module.exports = router;

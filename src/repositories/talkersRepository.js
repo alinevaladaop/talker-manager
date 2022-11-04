@@ -32,9 +32,17 @@ const updatePerson = async (idToUpdate, nameUpdate, ageUpdate, talkUpdate) => {
   await writeFile(talkerPath, JSON.stringify(talkers));
 };
 
+const deletePerson = async (idToDelete) => {
+  const talkers = await findAllTalkers();
+  const indexToDelete = talkers.findIndex(({ id }) => id === Number(idToDelete));
+  talkers.splice(indexToDelete, 1);
+  await writeFile(talkerPath, JSON.stringify(talkers));
+};
+
 module.exports = {
   findAllTalkers,
   findTalkerById,
   createNewPerson,
   updatePerson,
+  deletePerson,
 };
