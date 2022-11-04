@@ -32,4 +32,13 @@ router.post('/', validateToken, validateName, validateAge, validateTalk, validat
     return res.status(201).json(result);
   });
 
+router.put('/:id', validateToken, validateName, validateAge, validateTalk, validateTalkRate,
+async (req, res) => {
+  const { name, age, talk } = req.body;
+  const { id } = req.params;
+  await talkersRepository.updatePerson(id, name, age, talk);
+  const result = await talkersRepository.findTalkerById(id);
+  return res.status(200).json(result);
+});
+
 module.exports = router;

@@ -23,8 +23,18 @@ const createNewPerson = async (name, age, talk) => {
   return id;
 };
 
+const updatePerson = async (idToUpdate, nameUpdate, ageUpdate, talkUpdate) => {
+  const talkers = await findAllTalkers();
+  const talkerFound = talkers.find(({ id }) => id === Number(idToUpdate));
+  talkerFound.name = nameUpdate;
+  talkerFound.age = ageUpdate;
+  talkerFound.talk = talkUpdate;
+  await writeFile(talkerPath, JSON.stringify(talkers));
+};
+
 module.exports = {
   findAllTalkers,
   findTalkerById,
   createNewPerson,
+  updatePerson,
 };
