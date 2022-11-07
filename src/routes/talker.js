@@ -10,6 +10,12 @@ const {
 
 const router = express.Router();
 
+router.get('/search', validateToken, async (req, res) => {
+  const { q } = req.query;
+  const foundTalker = await talkersRepository.searchTalker(q);
+  return res.status(200).json(foundTalker);
+});
+
 router.get('/', async (_req, res) => {
   const result = await talkersRepository.findAllTalkers();
   return res.status(200).json(result);

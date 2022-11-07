@@ -1,6 +1,8 @@
 const { readFile, writeFile } = require('fs').promises;
 const path = require('path');
 
+const isEmpty = (value) => value === undefined || value === '';
+
 const talkerPath = path.resolve(__dirname, '..', 'talker.json');
 
 const findAllTalkers = async () => {
@@ -39,10 +41,20 @@ const deletePerson = async (idToDelete) => {
   await writeFile(talkerPath, JSON.stringify(talkers));
 };
 
+const searchTalker = async (nameToSearch) => {
+  if (isEmpty(nameToSearch)) return findAllTalkers();
+
+  if (!isEmpty(nameToSearch)) {
+   const allTalkers = await findAllTalkers();
+   return allTalkers.filter(({ name }) => name.includes(nameToSearch));
+  }
+};
+
 module.exports = {
   findAllTalkers,
   findTalkerById,
   createNewPerson,
   updatePerson,
   deletePerson,
+  searchTalker,
 };
